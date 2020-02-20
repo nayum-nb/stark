@@ -1,0 +1,183 @@
+let maximum=((a,b)=> a>=b?a:b);
+
+************************************************************
+
+let person={
+  name:'nayum',
+  sayHi:function(){
+    console.log(`Hi I am ${this.name}` );
+  },
+  hobbies:['robots','internet','videogame'],
+  showHobbies:function(){
+    this.hobbies.forEach(hobby=>{
+      console.log(`${this.name} likes ${hobby}`)
+    });
+  }
+}
+
+person.sayHi();
+person.showHobbies();
+console.log('my name is '+  person.name +'.');
+
+**********************************************************************
+
+
+class me{
+  
+  constructor(name,place){
+    this.name=name;
+    this.place=place;
+  }
+  
+  register(){
+    console.log(`i am ${this.name} from ${this.place}`);
+  }
+  
+}
+class you extends me {
+  constructor(name,place,age){
+    super(name,place);
+    this.age=age;
+  }
+  register(){
+    console.log(`you are ${this.name} from ${this.place} and  ${this.age} years old`)
+  }
+}
+let person1= new me('ravi','chennai');
+person1.register();
+
+let person2= new you('gopi','AP',20);
+person2.register();
+
+*****************************************************************
+class Car {
+    constructor(name,distance){
+      this.name=name;
+      this.distance=distance;
+    }
+    show(){
+      return `${this.name} had travelled for ${this.distance} miles` ;
+    };
+}
+let car1= new Car('Audi',100);
+let msg=car1.show();
+console.log(msg);
+**********************************************************
+map and set
+
+// let myArray=[1,2,3,4,10];
+// let mySet= new Set(myArray);
+
+// mySet.add('100');
+// mySet.add({a:1,b:3});
+// mySet.delete(2);
+
+// //console.log(mySet);
+
+// mySet.forEach(function(n){
+//   console.log(n);
+// });
+
+let myMap= new Map([['a1','me'],['b1','you']]);
+
+myMap.set('c1','all');
+
+myMap.forEach((m,n)=>{ 
+console.log(m,n);
+});
+
+*************************************************************
+symbol
+
+// Defining symbol 
+let email = Symbol(); 
+// Defining object "user"
+let user = {      
+    name:"praveen", 
+    age : 30, 
+//Symbol as key in array 
+    [email] : "praveen@gmail.com" 
+ };  
+
+let allKeys =  Reflect.ownKeys(user);  //Output: [ "name", "age", Symbol() ]
+let privateKeys =  Object.getOwnPropertySymbols(user);  //Output:  [ Symbol() ]
+let publicKeys = Object.keys(user); //Output:["name","age" ]
+
+test.js
+const index = require('./index')
+const assert = require('assert')
+
+it("returns the allKeys of object Employee", () => {
+    assert.equal(index.allKeys.length, 3);
+});
+
+it("returns the privateKeys of object Employee", () => {
+    assert.equal(index.privateKeys.length, 1);
+});
+
+it("returns the publicKeys of object Employee", () => {
+    assert.equal(index.publicKeys.length, 2);
+});
+module.exports = {user, allKeys, privateKeys, publicKeys}
+
+***********************************************************
+promise
+
+/*
+immediately resolved
+var myProm =Promise.resolve('foo');
+myProm.then(res=>console.log(res));
+*/
+
+/*
+var myProm = new Promise( function (resolve, reject) { 
+    setTimeout(()=>resolve(4),3000);
+});
+
+myProm.then((res)=>{
+  res+=4;
+  console.log(res);
+}); 
+
+*/
+function getData(method,url){
+  return new Promise(function(resolve,reject){
+       var xhr= new XMLHttpRequest();
+       xhr.open(method,url);
+       xhr.onload= function(){
+         if(this.status>=200 && this.status<300){
+           resolve(xhr.response);
+         }else{
+           reject({
+             status:this.status,
+             statusText:xhr.statusText
+           });
+         }
+       };
+       xhr.onerror=function(){
+          reject({
+             status:this.status,
+             statusText:xhr.statusText
+           });
+       };
+       xhr.send();
+                     });
+}
+    getData('GET','https://jsonplaceholder.typicode.com/todos').then(function(data){
+      let todos = JSON.parse(data);
+      let output='';
+      for(let i of todos){
+        output+=`
+          <li>
+             <h3>
+           </li>
+
+`
+      }
+      
+    }).catch(function(err){
+      console.log(err);
+    });
+
+***************************************************************
+
